@@ -2,24 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
-import Button from '../Components/Button'
-
+import Button from '../Components/Button';
 gsap.registerPlugin(ScrollTrigger);
 
 const Portfolio = () => {
-  const [darkMode, setDarkMode] = useState(true);
+   const [darkMode, setDarkMode] = useState(true);
   const [activeFramework, setActiveFramework] = useState('react');
   const [isToggling, setIsToggling] = useState(false);
 
-  const heroTitleRef = useRef(null);
-  const heroSubtitleRef = useRef(null);
-  const cardsRef = useRef([]);
   const sectionRefs = useRef([]);
   const navDotsRef = useRef([]);
-  const toggleHandleRef = useRef(null);
-  const toggleBgRef = useRef(null);
-  const toggleContainerRef = useRef(null);
   const lenisRef = useRef(null);
+
 
   const socialLinks = [
     { name: 'GitHub', url: 'https://github.com/Umaar2008', icon: '🐙' },
@@ -32,7 +26,7 @@ const Portfolio = () => {
       title: 'CHAPATTY',
       description: 'A real-time chatting platform built with React and Firebase, featuring one-on-one messaging, profile management, Chatting with A Gemini AI and persistent chat history. The Node.js backend handles profile info while Firebase powers real-time messaging and handles Authentication.',
       tags: ['React', ' Firebase (Auth + Firestore)', 'Nodejs' , 'Ai Chatting Bot'],
-      media: 'https://www.linkedin.com/feed/update/urn:li:activity:7351905870840066048/',
+      media: '/Chapatty.png',
       liveLink: 'https://chapatty-jq1k.vercel.app/',
       githubLink: 'https://github.com/Umaar2008/Chapatty',
       videoLink: 'https://www.linkedin.com/feed/update/urn:li:activity:7351905870840066048/'
@@ -41,7 +35,7 @@ const Portfolio = () => {
       title: 'Business Management',
       description: 'A full-stack MERN web application designed for small to medium businesses. It features custom-built authentication (JWT), employee management, Product management and an analytics dashboard to monitor operations in real-time. Built with clean UI and robust backend logic for scalability',
       tags: ['React', 'Node.js', 'Express' , 'MongoDB', 'JWT Auth'],
-      media : 'AdobeExpress-file2.png' ,
+      media : '/BUSINESS.png' ,
       liveLink: 'https://www.linkedin.com/feed/update/urn:li:activity:7241868087875014657/',
       githubLink: 'https://github.com/Umaar2008/Business-Management-Project',
       videoLink: 'https://www.linkedin.com/feed/update/urn:li:activity:7241868087875014657/'
@@ -50,7 +44,7 @@ const Portfolio = () => {
       title: 'AORA ',
       description: 'An AI-powered chat/talking app built in React Native with a custom backend. Designed to allow users to have interactive, human-like conversations with AI in real time.',
       tags: ['React Native', 'Node.js', 'Express', 'Ai API Integration'],
-      media: 'https://www.linkedin.com/posts/umar-sarfraz-675640264_hey-just-made-my-first-full-stack-mobile-activity-7253534764597428224-w1yp?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEDgz7kBfg7lBiVMKkvuioE3AdbfKfuOS-0',
+      media: '/Aora.png',
       liveLink: 'https://www.linkedin.com/posts/umar-sarfraz-675640264_hey-just-made-my-first-full-stack-mobile-activity-7253534764597428224-w1yp?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEDgz7kBfg7lBiVMKkvuioE3AdbfKfuOS-0',
       githubLink: 'https://github.com/Umaar2008/Aora',
       videoLink: 'https://www.linkedin.com/posts/umar-sarfraz-675640264_hey-just-made-my-first-full-stack-mobile-activity-7253534764597428224-w1yp?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEDgz7kBfg7lBiVMKkvuioE3AdbfKfuOS-0'
@@ -76,7 +70,6 @@ const Portfolio = () => {
 { title: "Deployment", description: "Deploying applications to Render, Vercel and Netlify", emoji: "🌍" },
   ];
 
-
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -101,131 +94,8 @@ const Portfolio = () => {
   }, []);
 
   useEffect(() => {
-    gsap.ticker.add((time) => {
-      lenisRef.current?.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
-  }, []);
-
-  const toggleFramework = () => {
-    if (isToggling) return;
-    setIsToggling(true);
-    
-    const newFramework = activeFramework === 'react' ? 'react-native' : 'react';
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setActiveFramework(newFramework);
-        setIsToggling(false);
-      }
-    });
-
-    tl.to(toggleHandleRef.current, {
-      scaleY: 0.6,
-      duration: 0.1,
-      ease: "power2.in"
-    })
-    .to(toggleHandleRef.current, {
-      scaleX: 1.2,
-      scaleY: 0.8,
-      duration: 0.2
-    })
-    .to(toggleHandleRef.current, {
-      x: newFramework === 'react-native' ? '100%' : 0,
-      scaleX: 1,
-      scaleY: 1,
-      duration: 0.5,
-      ease: "elastic.out(1, 0.5)"
-    });
-
-    gsap.to(toggleBgRef.current, {
-      backgroundColor: newFramework === 'react-native' ? 
-        (darkMode ? '#ec4899' : '#db2777') : 
-        (darkMode ? '#3b82f6' : '#2563eb'),
-      duration: 0.5
-    });
-
-    if (toggleContainerRef.current) {
-      for (let i = 0; i < 12; i++) {
-        const particle = document.createElement('div');
-        particle.className = `absolute w-2 h-2 rounded-full ${
-          newFramework === 'react-native' ? 'bg-pink-500' : 'bg-blue-500'
-        }`;
-        toggleContainerRef.current.appendChild(particle);
-        
-        gsap.fromTo(particle, 
-          { x: 12, y: 6, opacity: 1 },
-          { 
-            x: gsap.utils.random(-50, 50),
-            y: gsap.utils.random(-50, 50),
-            opacity: 0,
-            duration: 1.5,
-            onComplete: () => particle.remove()
-          }
-        );
-      }
-    }
-  };
-
-  useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from([heroTitleRef.current, heroSubtitleRef.current], {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power3.out"
-      });
-
-      cardsRef.current.forEach((card, index) => {
-        if (!card) return;
-        
-        gsap.from(card, {
-          x: index % 2 === 0 ? 100 : -100,
-          opacity: 0,
-          duration: 0.8,
-          delay: index * 0.1,
-          scrollTrigger: {
-            trigger: card,
-            start: "top 80%",
-            toggleActions: "play none none none"
-          }
-        });
-
-        const handleMouseMove = (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          
-          gsap.to(card, {
-            rotationY: (x - centerX) / 20,
-            rotationX: (centerY - y) / 20,
-            transformPerspective: 1000,
-            transformOrigin: "center center",
-            ease: "power1.out",
-            duration: 0.5
-          });
-        };
-
-        const handleMouseLeave = () => {
-          gsap.to(card, {
-            rotationY: 0,
-            rotationX: 0,
-            duration: 0.7,
-            ease: "elastic.out(1, 0.5)"
-          });
-        };
-
-        card.addEventListener('mousemove', handleMouseMove);
-        card.addEventListener('mouseleave', handleMouseLeave);
-
-        return () => {
-          card.removeEventListener('mousemove', handleMouseMove);
-          card.removeEventListener('mouseleave', handleMouseLeave);
-        };
-      });
-
+      // Only keep the ScrollTrigger for navigation dots
       sectionRefs.current.forEach((section, index) => {
         if (!section || !navDotsRef.current[index]) return;
         
@@ -255,7 +125,7 @@ const Portfolio = () => {
     document.documentElement.classList.toggle('dark', !darkMode);
   };
 
-  const handleNavClick = (sectionId, e) => {
+   const handleNavClick = (sectionId, e) => {
     e.preventDefault();
     const section = document.getElementById(sectionId);
     if (section && lenisRef.current) {
@@ -266,100 +136,54 @@ const Portfolio = () => {
     }
   };
 
-  const ProjectCard = ({ project, index }) => {
-    const cardRef = useRef(null);
-    
-    useEffect(() => {
-      if (!cardRef.current) return;
-  
-      const card = cardRef.current;
-      
-      const handleMouseMove = (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        gsap.to(card, {
-          rotationY: (x - centerX) / 20,
-          rotationX: (centerY - y) / 20,
-          transformPerspective: 1000,
-          transformOrigin: "center center",
-          ease: "power1.out",
-          duration: 0.5
-        });
-      };
-  
-      const handleMouseLeave = () => {
-        gsap.to(card, {
-          rotationY: 0,
-          rotationX: 0,
-          duration: 0.7,
-          ease: "elastic.out(1, 0.5)"
-        });
-      };
-  
-      card.addEventListener('mousemove', handleMouseMove);
-      card.addEventListener('mouseleave', handleMouseLeave);
-  
-      return () => {
-        card.removeEventListener('mousemove', handleMouseMove);
-        card.removeEventListener('mouseleave', handleMouseLeave);
-      };
-    }, []);
-  
+  const ProjectCard = ({ project, darkMode }) => {
     return (
-      <div
-        ref={cardRef}
-        className={`rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl relative group ${
-          darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-white hover:bg-gray-100'
-        }`}
+      <div className={`rounded-2xl overflow-hidden transform transition-all duration-500 group relative
+        ${darkMode 
+          ? 'bg-gray-700 hover:bg-gray-600' 
+          : 'bg-white hover:bg-gray-100'} 
+        hover:scale-[1.02] hover:shadow-2xl`}
       >
         <a 
           href={project.liveLink} 
           target="_blank" 
           rel="noopener noreferrer"
-          className="block w-full h-64 bg-gray-300 overflow-hidden relative"
+          className="block w-full h-64 relative rounded-lg overflow-hidden group"
         >
           <img 
             src={project.media}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-500 flex items-center justify-center">
-            <span className="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 text-xl font-bold">
+          <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-500 flex items-center justify-center pointer-events-none">
+            <span className="text-black opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 text-xl font-bold">
               View Project
             </span>
           </div>
         </a>
         
         <div className="p-6">
-          <h3 className={`text-2xl font-bold mb-2 ${
-            darkMode ? 'text-white' : 'text-gray-900'
-          }`}>
+          <h3 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             {project.title}
           </h3>
-          <p className={`mb-4 ${
-            darkMode ? 'text-gray-300' : 'text-gray-700'
-          }`}>
+          <p className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} mb-4`}>
             {project.description}
           </p>
-          
+
           <div className="flex flex-wrap gap-2 mb-4">
             {project.tags.map((tag, index) => (
               <span
                 key={index}
-                className={`text-xs px-3 py-1 rounded-full transition-all hover:scale-105 ${
-                  darkMode ? 'bg-gray-600 text-white' : 'bg-gray-200 text-gray-800'
-                }`}
+                className={`text-xs px-3 py-1 rounded-full transition-all hover:scale-105 
+                  ${darkMode 
+                    ? 'bg-gray-600 text-white' 
+                    : 'bg-gray-200 text-gray-800'}`}
               >
                 {tag}
               </span>
             ))}
           </div>
-          
+
           <div className="flex gap-3 mt-4">
             <a
               href={project.githubLink}
@@ -403,9 +227,10 @@ const Portfolio = () => {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${
+     <div className={`min-h-screen transition-colors duration-300 ${
       darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'
     }`}>
+      
       
       <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col gap-6">
         {['home', 'about', 'skills', 'work', 'contact'].map((section, index) => (
@@ -426,7 +251,6 @@ const Portfolio = () => {
           </a>
         ))}
       </div>
-
       <button
         onClick={toggleDarkMode}
         className={`fixed top-6 right-6 z-50 p-3 rounded-full transition-all hover:scale-110 ${
@@ -439,21 +263,21 @@ const Portfolio = () => {
       </button>
 
       <button
-      className={` cursor-pointer rounded-full ml-2 mt-6  px-6 py-1.5 text-black bg-white hover:bg-orange-500 hover:border-black hover:scale-95 hover:shadow-[inset_0_4px_12px_rgba(0,0,0,0.3)] transition-all duration-300 ease-in-out ${
-            darkMode ? 'bg-gradient-to-r from-pink-500 to-purple-600' : 
-            'bg-gradient-to-r from-blue-500 to-indigo-600'
-          }`}
+        className={`cursor-pointer rounded-full ml-2 mt-6 px-6 py-1.5 text-black bg-white hover:bg-orange-500 hover:border-black hover:scale-95 hover:shadow-[inset_0_4px_12px_rgba(0,0,0,0.3)] transition-all duration-300 ease-in-out ${
+          darkMode ? 'bg-gradient-to-r from-pink-500 to-purple-600' : 
+          'bg-gradient-to-r from-blue-500 to-indigo-600'
+        }`}
       >
-       Download CV
+        Download CV
       </button>
-      <section 
+
+       <section 
         id="home"
         ref={el => sectionRefs.current[0] = el}
         className="h-screen flex items-center justify-center relative overflow-hidden"
       >
         <div className="text-center px-6 max-w-4xl relative z-10">
           <h1 
-            ref={heroTitleRef}
             className={`text-6xl md:text-9xl font-bold mb-6 tracking-tighter hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r ${
               darkMode ? 'hover:from-pink-500 hover:to-purple-600' : 
               'hover:from-blue-500 hover:to-indigo-600'
@@ -462,7 +286,6 @@ const Portfolio = () => {
             UMAR KHAN
           </h1>
           <p 
-            ref={heroSubtitleRef}
             className={`text-xl md:text-3xl font-light mb-8 hover:scale-105 transition-transform ${
               darkMode ? 'text-gray-300' : 'text-gray-600'
             }`}
@@ -476,7 +299,7 @@ const Portfolio = () => {
         </div>
       </section>
 
-      <section 
+       <section 
         id="about"
         ref={el => sectionRefs.current[1] = el}
         className={`py-32 ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}
@@ -508,13 +331,11 @@ I create everything from AI-enabled apps such as Aora to real-time messaging pla
                 </span>
                 
                 <div 
-                  ref={toggleContainerRef}
                   className="relative w-20 h-10 rounded-full p-1 cursor-pointer overflow-hidden"
-                  onClick={toggleFramework}
+                  onClick={() => setActiveFramework(activeFramework === 'react' ? 'react-native' : 'react')}
                   aria-label="Toggle framework"
                 >
                   <div 
-                    ref={toggleBgRef}
                     className={`absolute inset-0 rounded-full transition-colors ${
                       activeFramework === 'react-native' ? 
                         (darkMode ? 'bg-pink-500' : 'bg-pink-600') : 
@@ -523,8 +344,7 @@ I create everything from AI-enabled apps such as Aora to real-time messaging pla
                   />
                   
                   <div 
-                    ref={toggleHandleRef}
-                    className="relative h-8 w-8 rounded-full bg-white shadow-lg flex items-center justify-center"
+                    className="relative h-8 w-8 rounded-full bg-white shadow-lg flex items-center justify-center transition-transform duration-300"
                     style={{ 
                       transform: activeFramework === 'react-native' ? 
                         'translateX(100%)' : 'translateX(0)'
@@ -548,7 +368,7 @@ I create everything from AI-enabled apps such as Aora to real-time messaging pla
                 'bg-gradient-to-br from-blue-500/20 to-indigo-600/20'
               }`}>
                 <div className="w-full h-full flex items-center justify-center">
-                  <img src="AdobeExpress-file2.png" className=' object-cover aspect-auto h-128 w-124' alt="" />
+                  <img src="AdobeExpress-file2.png" className='object-cover aspect-auto h-128 w-124' alt="" />
                 </div>
               </div>
             </div>
@@ -575,7 +395,6 @@ I create everything from AI-enabled apps such as Aora to real-time messaging pla
             {skills.map((skill, index) => (
               <div
                 key={index}
-                ref={el => cardsRef.current[index] = el}
                 className={`rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 ${
                   darkMode ? 'bg-gray-600 hover:bg-gray-500' : 
                   'bg-gray-100 hover:bg-gray-200'
@@ -618,7 +437,7 @@ I create everything from AI-enabled apps such as Aora to real-time messaging pla
               <ProjectCard 
                 key={index}
                 project={project}
-                index={index}
+                darkMode={darkMode}
               />
             ))}
           </div>
@@ -641,8 +460,8 @@ I create everything from AI-enabled apps such as Aora to real-time messaging pla
           </h2>
           
           <button 
-onClick={() => window.open('https://mail.google.com/mail/?view=cm&fs=1&to=umaarkhan2008@gmail.com', '_blank')}
-            className={`relative w-48 h-48 md:w-64 md:h-64 rounded-full flex items-center justify-center overflow-hidden transform transition-all duration-500 hover:scale-110 hover:shadow-xl ${
+            onClick={() => window.open('https://mail.google.com/mail/?view=cm&fs=1&to=umaarkhan2008@gmail.com', '_blank')}
+            className={`relative w-48 cursor-pointer h-48 md:w-64 md:h-64 rounded-full flex items-center justify-center overflow-hidden transform transition-all duration-500 hover:scale-110 hover:shadow-xl ${
               darkMode ? 'bg-gradient-to-br from-pink-500 to-purple-600' : 
               'bg-gradient-to-br from-blue-500 to-indigo-600'
             }`}
