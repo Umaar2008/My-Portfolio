@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
 import Button from '../Components/Button';
+import { href } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 
 const Portfolio = () => {
@@ -263,12 +264,19 @@ const Portfolio = () => {
       </button>
 
       <button
+    
         className={`cursor-pointer rounded-full ml-2 mt-6 px-6 py-1.5 text-black bg-white hover:bg-orange-500 hover:border-black hover:scale-95 hover:shadow-[inset_0_4px_12px_rgba(0,0,0,0.3)] transition-all duration-300 ease-in-out ${
           darkMode ? 'bg-gradient-to-r from-pink-500 to-purple-600' : 
           'bg-gradient-to-r from-blue-500 to-indigo-600'
         }`}
       >
+        <a href="https://drive.google.com/file/d/1U-ftiIOPaTC_fSrLL16wKUntOkvUjtne/view?usp=drive_link"
+        target='_blank '
+        rel="noopener noreferrer"
+        >
         Download CV
+
+        </a>
       </button>
 
        <section 
@@ -276,14 +284,14 @@ const Portfolio = () => {
         ref={el => sectionRefs.current[0] = el}
         className="h-screen flex items-center justify-center relative overflow-hidden"
       >
-        <div className="text-center px-6 max-w-4xl relative z-10">
+        <div className="text-center px-6 max-w-5xl relative z-10">
           <h1 
             className={`text-6xl md:text-9xl font-bold mb-6 tracking-tighter hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r ${
               darkMode ? 'hover:from-pink-500 hover:to-purple-600' : 
               'hover:from-blue-500 hover:to-indigo-600'
             } transition-all duration-500`}
           >
-            UMAR KHAN
+            UMAR SARFRAZ
           </h1>
           <p 
             className={`text-xl md:text-3xl font-light mb-8 hover:scale-105 transition-transform ${
