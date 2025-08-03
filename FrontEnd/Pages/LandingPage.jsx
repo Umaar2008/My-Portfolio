@@ -18,7 +18,7 @@ const Portfolio = () => {
 
   const socialLinks = [
     { name: 'GitHub', url: 'https://github.com/Umaar2008', icon: '🐙' },
-    { name: 'LinkedIn', url: 'https://linkedin.com', icon: '💼' },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/umar-sarfraz-675640264/', icon: '💼' },
     { name: 'Twitter', url: 'https://x.com/Umaar2008', icon: 'X' }
   ];
 
