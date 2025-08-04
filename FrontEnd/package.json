@@ -22,6 +22,7 @@
     "lenis": "^1.1.14-dev.5",
     "react": "^19.1.0",
     "react-class-props": "^0.0.5",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.7.0",
     "react-use": "^17.6.0",

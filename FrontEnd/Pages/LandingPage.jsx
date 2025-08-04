@@ -4,6 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
 import Button from '../Components/Button';
 import { href } from 'react-router-dom';
+import {  isBrowser, isMobile } from 'react-device-detect';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const Portfolio = () => {
@@ -72,7 +74,10 @@ const Portfolio = () => {
   ];
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    if (isBrowser) {
+      
+      document.body.style.overflow = 'hidden';
+    } 
 
     lenisRef.current = new Lenis({
       lerp: 0.1,
